@@ -1,13 +1,15 @@
 from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
-
+# THIS HAS BEEN EDITED
 app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mandy@localhost/sc'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://jwmkkkpinyezpa:82620c65d6883e2025f58162fe0cbd2c6b8f2e1ac9c56627a4cf807a0df18b6a@ec2-54-75-184-144.eu-west-1.compute.amazonaws.com:5432/d8up2dhh9dgqg8'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = 'hi'
 
 db = SQLAlchemy(app)
 
+db.create_all()
 
 class People(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +20,6 @@ class People(db.Model):
         self.pname = pname
         self.color = color
 
-db.create_all()
 
 @app.route('/')
 def home():
@@ -42,6 +43,6 @@ def personadd():
 
 
 if __name__ == '__main__':
-    with app.app_context():
-        #db.create_all()
-        app.run(debug=True)
+    # with app.app_context():
+    # db.create_all()
+    app.run(debug=True)
